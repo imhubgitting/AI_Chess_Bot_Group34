@@ -1,21 +1,31 @@
 # Game Loop
 
-import pygame
+import pygame as py
 
-pygame.init()
+py.init()
 
 WINDOW_SIZE = (600,600)
-screen = pygame.display.set_mode(WINDOW_SIZE)
+screen = py.display.set_mode(WINDOW_SIZE)
 
 def draw(screen):
     screen.fill('white')
-    pygame.display.update()
+    py.display.update()
     
 if __name__ == '__main__':
     running = True
     while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        mx, my = py.mouse.get_pos()
+
+        # * Event Handling
+        for event in py.event.get():
+            # Quit the game if the user presses the close button
+            if event.type == py.QUIT:
                 running = False
+
+        # * Checkmate Handling
+            # TODO if board.is_in_checkmate('black'):
+            # TODO if board.is_in_checkmate('white'):
+
+        # * Draw Handling
         draw(screen)
         

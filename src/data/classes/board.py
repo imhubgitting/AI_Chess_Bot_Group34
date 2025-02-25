@@ -79,11 +79,13 @@ class Board:
 
 
 # * Helper Functions
-    # TODO def get_square_from_pos(self, pos):
-        # Returns Square object given (x, y)
+    def get_square_from_pos(self, pos):
+        return self.squares[pos.x][pos.y]
 
-    # TODO def get_piece_from_pos(self, pos):
-        # Returns piece occupying square given (x, y)
+    def get_piece_from_pos(self, pos):
+        square = get_square_from_pos(pos)
+        return square.occupying_piece
+
 
 
 # * Game Logic

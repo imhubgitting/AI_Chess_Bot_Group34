@@ -2,6 +2,7 @@
 
 import pygame as py
 import Square
+from dataclasses import Queen
 
 class Board:
 # * Setup Functions
@@ -27,10 +28,6 @@ class Board:
         ]
         self.squares = self.generate_squares()
         self.setup_board()
-
-
-
-
 
     def generate_squares(self):
         # Creates 8x8 grid of Square objects
@@ -80,11 +77,12 @@ class Board:
 
 # * Helper Functions
     def get_square_from_pos(self, pos):
-        return self.squares[pos.x][pos.y]
+        for square in self.squares:
+            if (square.x, square.y) == (pos[0], pos[1]):
+                return square
 
     def get_piece_from_pos(self, pos):
-        square = get_square_from_pos(pos)
-        return square.occupying_piece
+        return self.get_square_from_pos(pos).occupying_piece
 
 
 
@@ -99,5 +97,11 @@ class Board:
         # Check if king has any valid moves, if not, checkmate is true
 
 # * Rendering
-    # TODO def draw(self, display):
+    def draw(self, display):
         # Draws board and highlights selected piece and its valid moves
+        if self.selected_piece is not None:
+            self.get_square_from_pos(self.selected_piece.pos).highlight = True
+            for square in self.selected_piece.get_valid_moves(self):
+                square.highlight = True
+        for square in self.squares:
+            square.draw(display)

@@ -1,8 +1,8 @@
 # Board Initialization
 
 import pygame as py
-import Square
-from dataclasses import Queen
+from data.classes.square import Square
+from data.classes.pieces.queen import Queen
 
 class Board:
 # * Setup Functions
@@ -12,8 +12,8 @@ class Board:
         # Initializes game state
         self.width = width
         self.height = height
-        self.title_width = width // 8
-        self.title_height = height // 8
+        self.tile_width = width // 8
+        self.tile_height = height // 8
         self.selected_piece = None
         self.turn = 'white'
         self.config = [
@@ -35,7 +35,7 @@ class Board:
         for y in range(8):
             for x in range(8):
                 output.append(
-                    Square(x, y, self.title_width, self.title_height)
+                    Square(x, y, self.tile_width, self.tile_height)
                 )
         return output
 
@@ -48,16 +48,16 @@ class Board:
                     square = self.get_square_from_pos((x, y))
                     # looking inside contents, what piece does it have
                     if piece[1] == 'R':
-                        square.occupying_piece = Rook(
+                        square.occupying_piece = Queen(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     # as you notice above, we put `self` as argument, or means our class Board
                     elif piece[1] == 'N':
-                        square.occupying_piece = Knight(
+                        square.occupying_piece = Queen(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'B':
-                        square.occupying_piece = Bishop(
+                        square.occupying_piece = Queen(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'Q':
@@ -65,11 +65,11 @@ class Board:
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'K':
-                        square.occupying_piece = King(
+                        square.occupying_piece = Queen(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'P':
-                        square.occupying_piece = Pawn(
+                        square.occupying_piece = Queen(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                         

@@ -1,7 +1,7 @@
 # Game Loop
 
 import pygame as py
-import Board
+from data.classes.board import Board
 
 py.init()
 

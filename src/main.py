@@ -1,14 +1,18 @@
 # Game Loop
 
 import pygame as py
+from data.classes.board import Board
 
 py.init()
 
 WINDOW_SIZE = (600,600)
 screen = py.display.set_mode(WINDOW_SIZE)
 
-def draw(screen):
-    screen.fill('white')
+board = Board(WINDOW_SIZE[0], WINDOW_SIZE[1])
+
+def draw(display):
+    display.fill('white')
+    board.draw(display)
     py.display.update()
     
 if __name__ == '__main__':

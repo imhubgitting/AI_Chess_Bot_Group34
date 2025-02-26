@@ -35,6 +35,18 @@ class Square:
 
 
     # * Rendering Functions
-        # TODO def draw(self, display):
-            # Draws square with appropriate color, highlighting
-            # When a piece is on square, centers and displays piece's image
+    def draw(self, display):
+        # Draws square with appropriate color, highlighting
+        # When a piece is on square, centers and displays piece's image
+
+        # configures if tile should be light or dark or highlighted tile
+        if self.highlight:
+            py.draw.rect(display, self.highlight_color, self.rect)
+        else:
+            py.draw.rect(display, self.draw_color, self.rect)
+        # adds the chess piece icons
+        if self.occupying_piece != None:
+            centering_rect = self.occupying_piece.img.get_rect()
+            centering_rect.center = self.rect.center
+            display.blit(self.occupying_piece.img, centering_rect.topleft)
+

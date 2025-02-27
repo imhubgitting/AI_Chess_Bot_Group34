@@ -87,11 +87,38 @@ class Board:
 
 
 # * Game Logic
-    # TODO def handle_click(self, mx, my):
-        # Handles user clicks on board
+    def handle_click(self, mx, my):
+        # Convert mouse coordinates to board grid position
+        print("handle_click triggered!")
+        x = mx // self.tile_width
+        y = my // self.tile_height
+        print("Computed grid position:", x, y)
+        clicked_square = self.get_square_from_pos((x,y))
+        print(f"Clicked square: ({clicked_square.x}, {clicked_square.y})")
+        # If a piece is selected already, try to move it
+        if self.selected_piece:
+            valid_moves = self.selected_piece.get_valid_moves(self)
+            if clicked_square in valid_moves:
+                #Move the piece to the clicked square
+                self.selected_piece.move(self, clicked_square)
+                self.selected_piece = None # Deselect
+                # Toggle turn
+                self.turn = 'black' if self.turn == 'white' else 'white'
+            else:
+                # If piece is another piece of current turn then just switch to that piece
+                if clicked_square.occupying_piece and clicked_square.occupying_piece.color == self.turn:
+                    self.selected_piece = clicked_square.occupying_piece
+                else:
+                    self.selected_piece = None #Invalid move
+        else:
+            # If nothing currently sleected, select a piece if it is current players piece
+            if clicked_square.occupying_piece and clicked_square.occupying_piece.color == self.turn:
+                self.selected_piece = clicked_square.occupying_piece
 
-    # TODO def is_in_check(self, color, board_change=None):
-        # Checks if given color's king is in check 
+
+    def is_in_check(self, color, board_change=None):
+    # Temporary just to run and test other functionality, until full check logic is implemented.
+        return False
 
     # TODO def is_in_checkmate(self, color):
         # Check if king has any valid moves, if not, checkmate is true
@@ -105,3 +132,5 @@ class Board:
                 square.highlight = True
         for square in self.squares:
             square.draw(display)
+
+

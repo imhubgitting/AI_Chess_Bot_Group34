@@ -25,6 +25,10 @@ if __name__ == '__main__':
             # Quit the game if the user presses the close button
             if event.type == py.QUIT:
                 running = False
+            elif event.type == py.MOUSEBUTTONDOWN:
+                # If mouse is clicked
+                if event.button == 1:
+                    board.handle_click(mx, my)
 
         # * Checkmate Handling
             # TODO if board.is_in_checkmate('black'):

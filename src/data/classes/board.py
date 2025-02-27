@@ -89,12 +89,9 @@ class Board:
 # * Game Logic
     def handle_click(self, mx, my):
         # Convert mouse coordinates to board grid position
-        print("handle_click triggered!")
         x = mx // self.tile_width
         y = my // self.tile_height
-        print("Computed grid position:", x, y)
         clicked_square = self.get_square_from_pos((x,y))
-        print(f"Clicked square: ({clicked_square.x}, {clicked_square.y})")
         # If a piece is selected already, try to move it
         if self.selected_piece:
             valid_moves = self.selected_piece.get_valid_moves(self)

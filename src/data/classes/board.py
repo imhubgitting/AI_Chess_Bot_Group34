@@ -87,8 +87,33 @@ class Board:
 
 
 # * Game Logic
-    # TODO def handle_click(self, mx, my):
+    def handle_click(self, mx, my):
         # Handles user clicks on board
+
+        # Convert mouse coords into board positions
+        x = mx // self.tile_width
+        y = my // self.tile_height
+
+        # Get board square that was clicked
+        clicked_square = self.get_square_from_pos((x,y))
+        
+        # If no piece is currently selected
+        if self.selected_piece is None:
+            # Check if clicked square has a piece
+            if clicked_square.occupying_piece is not None:
+                # Select piece on that square
+                self.selected_piece = clicked_square.occupying_piece
+
+        # If a piece is already selected, attempt to move it        
+        elif self.selected_piece.move(self, clicked_square):
+            # If move is successful, switch turn to other player
+            self.turn = 'white' if self.turn == 'black' else 'black'
+        
+        # If move was not successful, check if clicked square contains another piece
+        elif clicked_square.occupying_piece is not None:
+            # Allow player to reselect a different piece if it's theirs
+            if clicked_square.occupying_piece.color == self.turn:
+                self.selected_piece = clicked_square.occupying_piece
 
     # TODO def is_in_check(self, color, board_change=None):
         # Checks if given color's king is in check 
@@ -99,9 +124,16 @@ class Board:
 # * Rendering
     def draw(self, display):
         # Draws board and highlights selected piece and its valid moves
+
+        # Check if there is a currently selected piece
         if self.selected_piece is not None:
+            # Highlight square where selected piece is located
             self.get_square_from_pos(self.selected_piece.pos).highlight = True
+
+            # Get all valid moves for selected piece and highlight those moves
             for square in self.selected_piece.get_valid_moves(self):
                 square.highlight = True
+
+        # Loop through all squares on board and draw them
         for square in self.squares:
             square.draw(display)

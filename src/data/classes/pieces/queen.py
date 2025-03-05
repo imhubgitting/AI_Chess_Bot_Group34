@@ -2,13 +2,14 @@
 
 import pygame as py
 from data.classes.piece import Piece
+from data.classes.piece import SCALE
 
 class Queen(Piece):
     def __init__(self, pos, color, board):
         super().__init__(pos, color, board)
         img_path = 'data/classes/imgs_pieces/' + color[0] + '_queen.png'
         self.img = py.image.load(img_path)
-        self.img = py.transform.scale(self.img, (board.tile_width - 20, board.tile_height - 20))
+        self.img = py.transform.scale(self.img, (board.tile_width - SCALE, board.tile_height - SCALE))
         self.notation = 'Q'
 
     def get_possible_moves(self, board):

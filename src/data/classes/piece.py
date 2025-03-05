@@ -1,6 +1,8 @@
 # Piece Initialization
 import pygame as py
 
+SCALE = 15
+
 class Piece:
 # * Setup Functions
     def __init__(self, pos, color, board):
@@ -16,16 +18,27 @@ class Piece:
     def get_moves(self, board):
         # Returns list of possible moves
         output = []
-        for direction in self.get_possible_moves(board): # TODO write all possible moves for every piece in their .py
-                for square in direction:
-                    if square.occupying_piece is not None:
-                        if square.occupying_piece.color == self.color:
-                            break
-                        else:
-                            output.append(square)
-                            break
+
+        # Get possible moves (may be different for each piece)
+        possible_moves = self.get_possible_moves(board)
+
+        # Ensure we handle different formats (list of lists for multi-paths like Queen, Rook, etc.)
+        if isinstance(possible_moves, list) and isinstance(possible_moves[0], list):
+            move_sets = possible_moves  # Multi-path pieces (Queen, Rook, etc.)
+        else:
+            move_sets = [possible_moves]  # Single list pieces (Pawn, Knight)
+                
+
+        for direction in move_sets:
+            for square in direction:
+                if square.occupying_piece is not None:
+                    if square.occupying_piece.color == self.color:
+                        break
                     else:
-                        output.append(square)
+                        output.append(square) # Enemy piece can be attacked
+                        break
+                else:
+                    output.append(square) # Empty square can be moved to
         return output
 
     def get_valid_moves(self, board):

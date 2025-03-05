@@ -2,7 +2,12 @@
 
 import pygame as py
 from data.classes.square import Square
+from data.classes.pieces.rook import Rook
+from data.classes.pieces.knight import Knight
+from data.classes.pieces.bishop import Bishop
 from data.classes.pieces.queen import Queen
+from data.classes.pieces.king import King
+from data.classes.pieces.pawn import Pawn
 
 class Board:
 # * Setup Functions
@@ -48,16 +53,16 @@ class Board:
                     square = self.get_square_from_pos((x, y))
                     # looking inside contents, what piece does it have
                     if piece[1] == 'R':
-                        square.occupying_piece = Queen(
+                        square.occupying_piece = Rook(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     # as you notice above, we put `self` as argument, or means our class Board
                     elif piece[1] == 'N':
-                        square.occupying_piece = Queen(
+                        square.occupying_piece = Knight(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'B':
-                        square.occupying_piece = Queen(
+                        square.occupying_piece = Bishop(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'Q':
@@ -65,11 +70,11 @@ class Board:
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'K':
-                        square.occupying_piece = Queen(
+                        square.occupying_piece = King(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'P':
-                        square.occupying_piece = Queen(
+                        square.occupying_piece = Pawn(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                         

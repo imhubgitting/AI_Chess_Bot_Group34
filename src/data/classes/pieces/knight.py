@@ -11,15 +11,15 @@ class Knight(Piece):
         self.img = py.transform.scale(self.img, (board.tile_width - 20, board.tile_height - 20))
         self.notation = 'K'
 
-    get_possible_moves(self, board):
+    def get_possible_moves(self, board):
         movements = [
-            (1, 2)
-            (-1, 2)
-            (1, -2)
-            (-1, -2)
-            (2, 1)
-            (-2, 1)
-            (2, -1)
+            (1, 2),
+            (-1, 2),
+            (1, -2),
+            (-1, -2),
+            (2, 1),
+            (-2, 1),
+            (2, -1),
             (-2, -1)
         ]
         output = []

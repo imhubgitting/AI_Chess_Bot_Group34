@@ -6,7 +6,7 @@ from data.classes.piece import Piece
 class Bishop(Piece):
     def __init__(self, pos, color, board):
         super().__init__(pos, color, board)
-        img_path = 'src/data/classes/imgs_pieces/' + color[0] + '_bishop'
+        img_path = 'src/data/classes/imgs_pieces/' + color[0] + '_bishop.png'
         self.img = py.image.load(img_path)
         self.img = py.transform.scale(self.img, (board.tile_width - 20, board.tile_height - 20))
         self.notation = 'B'

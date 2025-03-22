@@ -3,6 +3,7 @@
 import pygame as py
 from data.classes.square import Square
 from data.classes.pieces.queen import Queen
+from data.classes.pieces.bishop import Bishop
 
 class Board:
 # * Setup Functions
@@ -57,7 +58,7 @@ class Board:
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'B':
-                        square.occupying_piece = Queen(
+                        square.occupying_piece = Bishop(
                             (x, y), 'white' if piece[0] == 'w' else 'black', self
                         )
                     elif piece[1] == 'Q':

@@ -12,61 +12,27 @@ class Queen(Piece):
         self.notation = 'Q'
 
     def get_possible_moves(self, board):
-            output = []
-            moves_north = []
-            for y in range(self.y)[::-1]:
-                moves_north.append(board.get_square_from_pos(
-                    (self.x, y)
-                ))
-            output.append(moves_north)
-            moves_ne = []
-            for i in range(1, 8):
-                if self.x + i > 7 or self.y - i < 0:
+        directions = [
+            (0, -1),  # North
+            (1, -1),  # Northeast
+            (1, 0),   # East
+            (1, 1),   # Southeast
+            (0, 1),   # South
+            (-1, 1),  # Southwest
+            (-1, 0),  # West
+            (-1, -1)  # Northwest
+        ]
+        
+        output = []
+        for dx, dy in directions:
+            path = []
+            x, y = self.x, self.y
+            while True:
+                x += dx
+                y += dy
+                if not (0 <= x < 8 and 0 <= y < 8):  # Check board bounds
                     break
-                moves_ne.append(board.get_square_from_pos(
-                    (self.x + i, self.y - i)
-                ))
-            output.append(moves_ne)
-            moves_east = []
-            for x in range(self.x + 1, 8):
-                moves_east.append(board.get_square_from_pos(
-                    (x, self.y)
-                ))
-            output.append(moves_east)
-            moves_se = []
-            for i in range(1, 8):
-                if self.x + i > 7 or self.y + i > 7:
-                    break
-                moves_se.append(board.get_square_from_pos(
-                    (self.x + i, self.y + i)
-                ))
-            output.append(moves_se)
-            moves_south = []
-            for y in range(self.y + 1, 8):
-                moves_south.append(board.get_square_from_pos(
-                    (self.x, y)
-                ))
-            output.append(moves_south)
-            moves_sw = []
-            for i in range(1, 8):
-                if self.x - i < 0 or self.y + i > 7:
-                    break
-                moves_sw.append(board.get_square_from_pos(
-                    (self.x - i, self.y + i)
-                ))
-            output.append(moves_sw)
-            moves_west = []
-            for x in range(self.x)[::-1]:
-                moves_west.append(board.get_square_from_pos(
-                    (x, self.y)
-                ))
-            output.append(moves_west)
-            moves_nw = []
-            for i in range(1, 8):
-                if self.x - i < 0 or self.y - i < 0:
-                    break
-                moves_nw.append(board.get_square_from_pos(
-                    (self.x - i, self.y - i)
-                ))
-            output.append(moves_nw)
-            return output
+                path.append(board.get_square_from_pos((x, y)))
+            output.append(path)
+        
+        return output

@@ -32,16 +32,28 @@ class Piece:
         # Filters moves from get_moves() 
         output = []
         for square in self.get_moves(board):
-            if not board.is_in_check(self.color, board_change=[self.pos, square.pos]):
-                output.append(square)
+            # TODO if not board.is_in_check(self.color, board_change=[self.pos, square.pos]):
+            output.append(square)
         return output
 
 
 # * Moving Piece Functions
-    # TODO move(self, board, square, force=False):
-        # Pawn Promotion
+    def move(self, board, square, force=False):
+        for i in board.squares:
+            i.highlight = False
+        if square in self.get_valid_moves(board) or force:
+            prev_square = board.get_square_from_pos(self.pos)
+            self.pos, self.x, self.y = square.pos, square.x, square.y
+            prev_square.occupying_piece = None
+            square.occupying_piece = self
+            board.selected_piece = None
+            self.has_moved = True
+        else:
+            board.selected_piece = None
+            return False
+        # TODO Pawn Promotion
 
-        # Move rook if castles
+        # TODO Move rook if castles
 
 
 # * Attack Calculation Functions

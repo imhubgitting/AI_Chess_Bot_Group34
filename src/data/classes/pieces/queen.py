@@ -34,5 +34,5 @@ class Queen(Piece):
                     break
                 path.append(board.get_square_from_pos((x, y)))
             output.append(path)
-        
+   
         return output

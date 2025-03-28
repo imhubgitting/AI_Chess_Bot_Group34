@@ -137,3 +137,18 @@ class Board:
         # Loop through all squares on board and draw them
         for square in self.squares:
             square.draw(display)
+
+    def get_all_legal_moves(self):
+        # Put into a array pairs of current to possible move
+        moves = []
+        for square in self.squares:
+            piece = square.occupying_piece
+            if piece and piece.color == self.turn:
+                valid_moves = piece.get_valid_moves(self)
+                for target_square in valid_moves:
+                    moves.append((piece, target_square))
+        return moves
+
+    def is_game_over(self):
+        # If stale mate || checkmate
+        return False  # Placeholder
